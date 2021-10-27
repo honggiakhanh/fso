@@ -2,10 +2,12 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
+require("dotenv").config();
+const Person = require("./models/person");
 
 app.use(express.json());
-app.use(cors())
-app.use(express.static('build'))
+app.use(cors());
+app.use(express.static("build"));
 
 morgan.token("body", (req, res) => JSON.stringify(req.body));
 app.use(
@@ -36,7 +38,9 @@ let persons = [
 ];
 //get all person
 app.get("/api/persons", (request, response) => {
-  response.json(persons);
+  Person.find({}).then((persons) => {
+    response.json(persons);
+  });
 });
 //get general info
 app.get("/info", (request, response) => {
@@ -62,22 +66,13 @@ app.delete("/api/persons/:id", (request, response) => {
 app.post("/api/persons", (request, response) => {
   const body = request.body;
   console.log(body);
-  //check name / duplicate name
+  //check name
   if (!body.name) {
     console.log("name missing");
     return response.status(400).json({
       error: "name missing",
     });
   }
-  const duplicate = persons.find((person) => person.name === body.name);
-  if (duplicate) {
-    console.log("duplicate");
-
-    return response.status(400).json({
-      error: "name must be unique",
-    });
-  }
-
   //check number
   if (!body.number) {
     return response.status(400).json({
@@ -85,17 +80,17 @@ app.post("/api/persons", (request, response) => {
     });
   }
   //add person
-  const newPerson = {
-    id: Math.floor(Math.random() * 1000),
+  const newPerson = new Person({
     name: body.name,
     number: body.number,
-  };
+  });
   console.log(newPerson);
-  persons = persons.concat(newPerson);
-  response.json(newPerson);
+  newPerson.save().then((savedPerson) => {
+    response.json(savedPerson);
+  });
 });
 ////
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
