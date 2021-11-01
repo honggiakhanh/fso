@@ -7,10 +7,11 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rm -r build && cd ../../part2/base/ && npm run build --prod && cp -r build ../../part3/base/",
+    "build:ui": "del /S build && cd ..\\..\\part2\\base\\ && npm run build --prod && copy build ..\\..\\part3\\base\\build",
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "mongoose": "^6.0.12"
   },
   "devDependencies": {
+    "eslint": "^8.1.0",
     "nodemon": "^2.0.13"
   }
 }
