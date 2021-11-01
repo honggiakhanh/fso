@@ -47,12 +47,10 @@ const App = () => {
           })
           .catch((error) => {
             setSuccessfulNoti(false);
-
-            setMessage(`${newName} was already removed from the server`);
+            setMessage(error.response.data.error);
             setTimeout(() => {
               setMessage(null);
             }, 3000);
-            setPersons(persons.filter((n) => n.id !== replacePerson.id));
           });
       }
       return;
@@ -62,17 +60,26 @@ const App = () => {
         number: newNumber,
       };
 
-      service.create(newPerson).then((newPerson) => {
-        setPersons(persons.concat(newPerson));
-        setNewName("");
-        setNewNumber("");
-        setSuccessfulNoti(true);
+      service
+        .create(newPerson)
+        .then((newPerson) => {
+          setPersons(persons.concat(newPerson));
+          setNewName("");
+          setNewNumber("");
+          setSuccessfulNoti(true);
 
-        setMessage(`Added ${newName}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      });
+          setMessage(`Added ${newName}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setSuccessfulNoti(false);
+          setMessage(error.response.data.error);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+        });
     }
   };
   //delete
