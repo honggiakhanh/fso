@@ -10,9 +10,16 @@ blogsRouter.get("/", (request, response) => {
 blogsRouter.post("/", (request, response) => {
   const blog = new Blog(request.body);
 
-  blog.save().then((result) => {
-    response.status(201).json(result);
-  });
+  if (blog.likes === undefined) {
+    blog.likes = 0;
+  }
+  if (blog.url === undefined || blog.title === undefined) {
+    response.status(400).send('Bad Request');
+  } else {
+    blog.save().then((result) => {
+      response.status(201).json(result);
+    });
+  }
 });
 
-module.exports = blogsRouter
+module.exports = blogsRouter;
