@@ -1,8 +1,19 @@
-POST http://localhost:3003/api/blogs
+# POST http://localhost:3003/api/blogs
+# Content-Type: application/json
+
+# {
+#     "title": "asdsdasda",
+#     "author": "me",
+#     "url": "test",
+#     "likes": 444
+# }
+
+PUT http://localhost:3003/api/blogs/61b114b427e8d95e8fe9a6ff
 Content-Type: application/json
 
 {
     "title": "asdsdasda",
     "author": "me",
-    "likes": 12333
+    "url": "no",
+    "likes": 2
 }
