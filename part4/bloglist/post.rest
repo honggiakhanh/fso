@@ -1,19 +1,18 @@
-# POST http://localhost:3003/api/blogs
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYxYzE0Nzc3ZjBmYjU2NjFkMjA1YjQ1MSIsImlhdCI6MTY0MDgwNjQ4MH0.GnfoLfWNqNTdBfMqfRxbf13YRTpiWTXwXmOdO3GGHes
+
+{
+    "title": "419test",
+    "author": "419test",
+    "url": "http://localhost:3003/api/",
+    "likes": 1
+}
+
+# POST http://localhost:3003/api/login 
 # Content-Type: application/json
 
 # {
-#     "title": "asdsdasda",
-#     "author": "me",
-#     "url": "test",
-#     "likes": 444
+#     "username": "root",
+#     "password": "carrot"
 # }
-
-PUT http://localhost:3003/api/blogs/61b114b427e8d95e8fe9a6ff
-Content-Type: application/json
-
-{
-    "title": "asdsdasda",
-    "author": "me",
-    "url": "no",
-    "likes": 2
-}
