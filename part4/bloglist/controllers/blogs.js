@@ -4,7 +4,7 @@ const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 
 const getToken = request => {
-  const authorization = request.get('authorization')
+  const authorization = request.get('Authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')){
     return authorization.substring(7)
   }
@@ -18,7 +18,7 @@ blogsRouter.get("/", async (request, response) => {
 
 blogsRouter.post("/", async (request, response) => {
   const body = request.body;
-
+  console.log(request.get('Authorization'))
   const token = getToken(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!token || !decodedToken.id) {
