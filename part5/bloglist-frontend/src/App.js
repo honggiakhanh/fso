@@ -10,9 +10,6 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
 
   const blogFormRef = useRef();
 
@@ -39,25 +36,21 @@ const App = () => {
       setUser(user);
       setUsername("");
       setPassword("");
-    } catch (err){
+    } catch (err) {
       console.log(err);
     }
   };
 
-  const addBlog = (e) => {
-    e.preventDefault();
+  const addBlog = (blog) => {
     blogFormRef.current.toggleVisibility();
     const newBlog = {
-      title: title,
-      author: author,
-      url: url,
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
     };
 
     blogService.addNew(newBlog).then((returnedBlog) => {
       setBlogs(blogs.concat(returnedBlog));
-      setTitle("");
-      setAuthor("");
-      setUrl("");
     });
   };
 
@@ -104,12 +97,6 @@ const App = () => {
           <Togglable buttonLabel="blog form" ref={blogFormRef}>
             <BlogForm
               addBlog={addBlog}
-              title={title}
-              setTitle={setTitle}
-              author={author}
-              setAuthor={setAuthor}
-              url={url}
-              setUrl={setUrl}
             />
           </Togglable>
 
