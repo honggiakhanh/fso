@@ -10,7 +10,7 @@ const getAll = async () => {
 const createNew = async (content) => {
   const newId = (100000 * Math.random()).toFixed(0).toString();
   const newAnec = {
-    content,
+    content: content,
     id: newId,
     votes: 0,
   };
@@ -18,4 +18,7 @@ const createNew = async (content) => {
   return response.data;
 };
 
-export default { getAll, createNew };
+export default { 
+  getAll, 
+  createNew 
+};

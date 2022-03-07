@@ -9,8 +9,11 @@ const AnecdoteForm = () => {
   const createNewAnecdote = async (event) => {
     event.preventDefault();
     const content = event.target.content.value;
-    anecService.createNew(content).then(dispatch(createAnecdote(content)))
+    event.target.content.value = '';
+    const NewAnec = await anecService.createNew(content)
+    dispatch(createAnecdote(NewAnec))
   };
+
   return (
     <form onSubmit={createNewAnecdote}>
       <div>
