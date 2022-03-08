@@ -9,17 +9,12 @@ const reducer = (state = 'Vote your favourite anecdote!', action) => {
   }
 };
 
-export const createNoti = (content) => {
-  return {
-    type: "CREATE_NOTI",
-    text: `Voted for: ${content}`
-  }
-}
-
-export const deleteNoti = () => {
-  return {
-    type: "DELETE_NOTI",
-    text: 'Vote your favourite anecdote!'
+export const setNotifications = (content, time) => {
+  return async dispatch => {
+    dispatch({type: "CREATE_NOTI", text: content})
+    setTimeout(() => {
+      dispatch({type: "DELETE_NOTI", text: 'Vote your favourite anecdote!'})
+    }, time*1000);
   }
 }
 

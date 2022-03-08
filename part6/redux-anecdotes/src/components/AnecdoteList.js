@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { upvote } from "../reducers/anecdoteReducer";
-import { createNoti, deleteNoti } from "../reducers/notificationReducer";
+import { setNotifications } from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
   const dispatch = useDispatch();
@@ -10,8 +10,7 @@ const AnecdoteList = () => {
     dispatch(upvote(id));
   };
   const noti = (content) => {
-    dispatch(createNoti(content));
-    setTimeout(() => dispatch(deleteNoti()), 5000);
+    dispatch(setNotifications(content, 5));
   };
 
   return anecdotes.map((anecdote) => (
